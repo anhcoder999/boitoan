@@ -576,7 +576,7 @@ const skyCol=(z,m)=>`<div class="chip center" style="padding:.8rem"><div class="
 const numCol=(lp,su,pe,dy,py)=>`<div class="chip center" style="padding:.8rem"><b class="grad" style="font-size:1.6rem">${lp}</b><div style="font-size:.72rem;color:var(--muted)">Sứ mệnh</div><div style="font-size:.78rem;margin-top:.3rem">Hồn ${su} · Cách ${pe}</div><div style="font-size:.72rem;color:var(--muted)">Ngày ${dy} · Vận ${py}</div></div>`;
 const rowWrap=(inner,delay=0)=>`<div class="row stag" style="animation-delay:${delay}ms">${inner}</div>`;
 const heartIcon=s=>`<span style="color:${color(s)};display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:50%;background:${color(s)}14">${I('heart')}</span>`;
-const nameBlock=(t,sub)=>`<div style="flex:1;min-width:0"><b style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t}</b><span style="display:block;font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${sub}</span></div>`;
+const nameBlock=(t,sub)=>`<div style="flex:1;min-width:0"><b style="display:block;word-break:break-word;overflow-wrap:anywhere">${t}</b><span style="display:block;font-size:.75rem;color:var(--muted);word-break:break-word;overflow-wrap:anywhere">${sub}</span></div>`;
 const scoreB=(s,fs)=>`<b style="color:${color(s)};font-size:${fs};flex:none;margin-left:auto">${s}%</b>`;
 let LAST=null,rated=false;
 function renderResults(d,a){
