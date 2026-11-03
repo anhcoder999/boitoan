@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#fff7fa">
+<title>Bói Toán Tình Yêu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--rose:#ff4d8d;--rose-d:#e0447c;--violet:#8b5cf6;--violet-d:#7c3aed;--ink:#3d2a45;--muted:#8a6f96;--label:#c2568f;--line:#f7dfeb;--chip:#fdf2f8;--track:#f6e3ee}
+html{scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--ink);background:#fff7fa;min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+input,select{-webkit-user-select:text;user-select:text}
+.romantic{font-family:'Dancing Script',cursive}
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+.orb.a{width:75vmax;height:75vmax;top:-32vmax;left:-22vmax;background:radial-gradient(circle,rgba(255,95,158,.20),transparent 62%);animation:d1 46s ease-in-out infinite alternate}
+.orb.b{width:65vmax;height:65vmax;top:-10vmax;right:-28vmax;background:radial-gradient(circle,rgba(139,92,246,.16),transparent 62%);animation:d2 52s ease-in-out infinite alternate}
+.orb.c{width:70vmax;height:70vmax;bottom:-35vmax;left:8vmax;background:radial-gradient(circle,rgba(255,171,112,.14),transparent 62%);animation:d1 60s ease-in-out infinite alternate-reverse}
+@keyframes d1{to{transform:translate3d(6vmax,4vmax,0) scale(1.06)}}
+@keyframes d2{to{transform:translate3d(-5vmax,5vmax,0) scale(1.05)}}
+#twinkle{position:fixed;inset:0;z-index:0;pointer-events:none}
+.tw{position:absolute;border-radius:50%;animation:tw linear infinite}
+@keyframes tw{0%,100%{opacity:0}50%{opacity:.85}}
+#hearts{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.fh{position:absolute;bottom:-6%;width:20px;height:20px;color:#ff9ec2;opacity:0;animation:rise 8s linear forwards;will-change:transform,opacity}
+@keyframes rise{0%{transform:translate3d(0,0,0) scale(.4);opacity:0}12%{opacity:.55}85%{opacity:.55}100%{transform:translate3d(26px,-110vh,0) scale(1.05);opacity:0}}
+.icon{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.18em;flex:none}
+.wrap{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:2.6rem 1.1rem 3rem}
+header{text-align:center;margin-bottom:2rem}
+.overline{font-size:.68rem;letter-spacing:.38em;text-transform:uppercase;color:var(--label);font-weight:600}
+h1{font-size:clamp(3rem,10vw,5rem);line-height:1.15;margin-top:.3rem}
+.grad{background:linear-gradient(120deg,var(--rose-d),var(--violet-d));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.sub{color:var(--muted);margin-top:.35rem}
+.divider{display:flex;align-items:center;justify-content:center;gap:.8rem;margin-top:1rem;color:var(--rose-d)}
+.divider i{height:1.5px;width:70px;background:linear-gradient(90deg,transparent,#f0a5c8)}
+.divider i:last-child{background:linear-gradient(90deg,#f0a5c8,transparent)}
+.tabs{display:flex;justify-content:center;margin-bottom:2rem}
+.tabs-in{display:inline-flex;gap:.25rem;padding:.35rem;border-radius:999px;background:rgba(255,255,255,.8);border:1px solid var(--line);box-shadow:0 10px 30px -14px rgba(190,60,120,.25);max-width:100%}
+.tab{display:inline-flex;align-items:center;gap:.5rem;border:0;background:transparent;color:#9a7ba8;font:inherit;font-weight:600;font-size:.92rem;padding:.65rem 1.25rem;border-radius:999px;cursor:pointer;white-space:nowrap;transition:transform .12s,background .25s,color .25s,box-shadow .25s}
+.tab:active{transform:translateY(2px) scale(.96)}
+.tab.active{background:linear-gradient(135deg,var(--rose),var(--violet));color:#fff;box-shadow:0 8px 20px -6px rgba(255,77,141,.5)}
+@media(max-width:480px){.tabs-in{gap:.15rem}.tab{padding:.6rem .85rem;font-size:.84rem;gap:.35rem}}
+.section-anim{animation:tabIn .5s cubic-bezier(.22,.9,.32,1) both}
+@keyframes tabIn{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
+.leaving{animation:tabOut .16s ease both;pointer-events:none}
+@keyframes tabOut{to{opacity:0;transform:translateY(-10px) scale(.99)}}
+.stag{animation:tabIn .55s cubic-bezier(.22,.9,.32,1) both}
+.sheet{background:rgba(255,255,255,.88);border:1px solid #fff;border-radius:30px;padding:1.6rem;box-shadow:0 30px 80px -32px rgba(190,60,120,.30),0 4px 18px rgba(190,60,120,.05)}
+@media(min-width:820px){.sheet{padding:2.4rem}}
+.panel{background:linear-gradient(180deg,#fff,#fff6fb);border:1px solid var(--line);border-radius:24px;padding:1.5rem;box-shadow:0 14px 36px -22px rgba(190,60,120,.22)}
+.chip{background:var(--chip);border:1px solid #f9e3f0;border-radius:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;border:0;border-radius:999px;cursor:pointer;font:inherit;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--rose),var(--violet));background-size:170% 170%;box-shadow:0 12px 26px -8px rgba(255,77,141,.55),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .12s,box-shadow .12s,background-position .3s}
+.btn:active{transform:translateY(3px) scale(.97);box-shadow:0 4px 10px -4px rgba(255,77,141,.5)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+@media(hover:hover){.btn:hover{transform:translateY(-2px);background-position:100% 100%;box-shadow:0 16px 34px -8px rgba(168,85,247,.5)}}
+.btn-lg{padding:1.05rem 2.6rem;font-size:1.02rem}
+.btn-sm{padding:.65rem 1.5rem;font-size:.9rem}
+.field{margin-bottom:1.05rem}
+.field label{display:block;font-size:.82rem;font-weight:600;color:var(--label);margin-bottom:.45rem}
+.input{width:100%;font:inherit;font-size:.95rem;color:var(--ink);background:#fff;border:1.5px solid #f2d7e6;border-radius:14px;padding:.8rem 1rem;transition:border-color .2s,box-shadow .2s}
+.input:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 4px rgba(255,77,141,.13)}
+.input::placeholder{color:#c9a9bc}
+.date-row{display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:.55rem}
+.grid2{display:grid;gap:1.4rem}
+@media(min-width:820px){.grid2{grid-template-columns:1fr 1fr}}
+.grid3{display:grid;gap:1rem}
+@media(min-width:760px){.grid3{grid-template-columns:repeat(3,1fr)}}
+.p-head{display:flex;align-items:center;gap:.85rem;margin-bottom:1.25rem}
+.p-ico{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;color:#fff;flex:none}
+.p-ico.one{background:linear-gradient(135deg,#ff7bab,#ff4d8d);box-shadow:0 8px 18px -6px rgba(255,77,141,.55)}
+.p-ico.two{background:linear-gradient(135deg,#a78bfa,#8b5cf6);box-shadow:0 8px 18px -6px rgba(139,92,246,.55)}
+.p-ico .icon{width:22px;height:22px}
+.p-head h3{font-size:1.12rem;font-weight:700}
+.center{text-align:center}
+.mt{margin-top:1.7rem}
+.loader{width:84px;height:84px;position:relative;margin:0 auto}
+.lring{position:absolute;inset:0;border:3px solid transparent;border-top-color:var(--rose);border-radius:50%;animation:spin 1s linear infinite}
+.lring.r2{inset:8px;border-top-color:var(--violet);animation:spin 1.5s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lheart{position:absolute;top:50%;left:50%;width:30px;height:30px;color:var(--rose);transform:translate(-50%,-50%);animation:beat 1.2s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:translate(-50%,-50%) scale(1)}25%{transform:translate(-50%,-50%) scale(1.22)}50%{transform:translate(-50%,-50%) scale(1)}75%{transform:translate(-50%,-50%) scale(1.14)}}
+.lbar{max-width:420px;margin:1.2rem auto 0;height:6px;background:var(--track);border-radius:99px;overflow:hidden}
+.lbar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--rose),var(--violet));transition:width .45s}
+.ring{transform:rotate(-90deg);filter:drop-shadow(0 6px 16px rgba(255,77,141,.28))}
+.ring .track{stroke:var(--track)}
+.ring .val{stroke-linecap:round;stroke-dasharray:565.48;stroke-dashoffset:565.48;transition:stroke-dashoffset 2s cubic-bezier(.22,.8,.3,1)}
+.score-box{position:relative;width:225px;height:225px;flex:none}
+.score-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-num b{font-size:3.9rem;font-weight:700;line-height:1}
+.names{font-size:1.35rem;color:var(--rose-d);font-weight:600}
+.card-title{display:flex;align-items:center;gap:.55rem;font-size:1.02rem;font-weight:700}
+.t-rose{color:var(--rose-d)}
+.t-violet{color:var(--violet-d)}
+.t-jade{color:#0d9488}
+.t-amber{color:#d97706}
+.t-indigo{color:#4f46e5}
+.pill{padding:.28rem .8rem;border-radius:999px;font-size:.8rem;font-weight:700}
+.zbadge{width:58px;height:58px;margin:0 auto .5rem;border-radius:50%;display:grid;place-items:center;font-size:1.55rem;background:linear-gradient(135deg,#ffe9f3,#f3e9ff);border:1px solid #f6d9ea;color:var(--rose-d)}
+.bar{height:6px;background:var(--track);border-radius:99px;overflow:hidden;margin-top:.5rem}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--rose),var(--violet));transition:width 1.1s}
+.chip-inline{display:inline-flex;align-items:center;gap:.45rem;padding:.5rem 1.05rem;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.86rem;font-weight:600;margin:.3rem .25rem 0 0;box-shadow:0 8px 20px -12px rgba(190,60,120,.3)}
+.chip-inline .icon{color:#ea580c}
+.chip-inline.vio .icon{color:var(--violet-d)}
+.chip-inline.jade{color:inherit}
+.chip-inline.jade .icon{color:#0d9488}
+.advice{display:flex;gap:.85rem;align-items:flex-start;padding:1rem 1.1rem;border-radius:16px;background:#fff7fb;border:1px solid #f9e3f0}
+.advice .icon{color:var(--rose);margin-top:.15rem}
+.row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.95rem 1.1rem;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 26px -18px rgba(190,60,120,.25);overflow:hidden}
+.row+.row{margin-top:.7rem}
+.rank{width:36px;height:36px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:700;background:#f6e9f1;color:#8a6f96}
+.rank.r1{background:linear-gradient(135deg,#ffd76e,#ff9d3c);color:#3b2a00}
+.rank.r2{background:linear-gradient(135deg,#eef0f4,#aeb4c4);color:#23262f}
+.rank.r3{background:linear-gradient(135deg,#e8a06a,#a05c2c);color:#2e1503}
+.foot{margin-top:3rem;text-align:center;color:#a58bb3;font-size:.83rem}
+.clu{display:flex;align-items:center;gap:.7rem;margin-top:.7rem}
+.clu .nm{width:96px;font-size:.8rem;color:var(--muted);flex:none}
+.clu .tr{flex:1;height:8px;background:var(--track);border-radius:99px;overflow:hidden}
+.clu .tr i{display:block;height:100%;width:0;border-radius:99px;transition:width 1.2s cubic-bezier(.22,.8,.3,1)}
+.clu .vv{width:42px;text-align:right;font-size:.82rem;font-weight:700;flex:none}
+.stars{display:flex;gap:.35rem;justify-content:center;margin-top:.6rem}
+.stars button{border:0;background:transparent;cursor:pointer;color:#e7cfe0;padding:.15rem;transition:transform .12s,color .2s}
+.stars button:active{transform:scale(.85)}
+.stars button svg{width:30px;height:30px;stroke-width:1.8}
+.stars button.on{color:#ffb020}
+.stars button.on svg{fill:#ffb020}
+@media(hover:hover){.stars button:hover{color:#ffb020}}
+.tarot{perspective:900px}
+.tcard{position:relative;height:170px;border-radius:16px;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.22,.8,.3,1);cursor:pointer}
+.tcard.flip{transform:rotateY(180deg)}
+.tface{position:absolute;inset:0;border-radius:16px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.8rem;text-align:center}
+.tback{background:linear-gradient(135deg,#2a1f3d,#4a2b5e);border:1px solid rgba(255,255,255,.18);color:#ffd7e6}
+.tback .icon{width:34px;height:34px;opacity:.8}
+.tfront{transform:rotateY(180deg);background:linear-gradient(160deg,#fff,#fff3f9);border:1px solid #f3d3e6;color:var(--ink);box-shadow:0 12px 30px -16px rgba(190,60,120,.4)}
+.tfront b{font-size:.95rem;margin-top:.3rem}
+.tfront span{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+.tpos{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--label);font-weight:700;margin-bottom:.4rem}
+.fc-svg{width:100%;height:150px;display:block}
+.fc-dot{cursor:pointer}
+#toast{position:fixed;top:1rem;right:1rem;z-index:60;display:flex;align-items:center;gap:.6rem;padding:.9rem 1.25rem;border-radius:16px;background:#fff;color:var(--ink);font-weight:600;font-size:.9rem;border:1px solid var(--line);box-shadow:0 18px 44px -16px rgba(190,60,120,.4);transform:translateX(130%);transition:transform .35s cubic-bezier(.22,.9,.3,1.2);max-width:calc(100vw - 2rem)}
+#toast.show{transform:translateX(0)}
+#toast.ok .icon{color:#0f9d6e}
+#toast.err .icon{color:#dc2626}
+.fade{opacity:0;animation:up .7s ease-out forwards}
+.d1{animation-delay:.15s}
+.d2{animation-delay:.3s}
+.d3{animation-delay:.45s}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol>
+<symbol id="i-hearts" viewBox="0 0 24 24"><path d="M14.8 12.2a3.2 3.2 0 0 0-4.5 0l-.6.6-.6-.6a3.2 3.2 0 1 0-4.5 4.5l.6.6L9.7 21l4.5-3.7.6-.6a3.2 3.2 0 0 0 0-4.5z"/><path d="M20.6 3.9a2.5 2.5 0 0 0-3.5 0l-.3.3-.3-.3a2.5 2.5 0 1 0-3.5 3.5l.3.3 3.5 3 3.5-3 .3-.3a2.5 2.5 0 0 0 0-3.5z"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.6 5.6 1.9-5.6 1.9L12 18l-1.9-5.6L4.5 10.5l5.6-1.9z"/><path d="M19 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
+<symbol id="i-crystal" viewBox="0 0 24 24"><circle cx="12" cy="10" r="6.5"/><path d="M8.5 16.5h7M7 20.5h10"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5A2.5 2.5 0 0 0 7 10.5M17 6h2.5A2.5 2.5 0 0 1 17 10.5"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M5 20c.8-3.4 3.6-5 7-5s6.2 1.6 7 5"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.7l5.9-.8z"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></symbol>
+<symbol id="i-yinyang" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a4.5 4.5 0 0 1 0 9 4.5 4.5 0 0 0 0 9"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="16.5" r="1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-hash" viewBox="0 0 24 24"><path d="M5 9h14M5 15h14M10 4L8 20M16 4l-2 16"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 4v6h-6M3 20v-6h6"/><path d="M4.5 9a8 8 0 0 1 13-2.5L21 10M19.5 15a8 8 0 0 1-13 2.5L3 14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 5-5.5"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 4.2L2.6 17.5a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 17h.01"/></symbol>
+<symbol id="i-brain" viewBox="0 0 24 24"><path d="M9.5 3A3.5 3.5 0 0 0 6 6.5c-2 .5-3.5 2.2-3.5 4.5 0 1.6.7 3 1.8 3.9-.2.5-.3 1-.3 1.6A4.5 4.5 0 0 0 8.5 21c1.2 0 2.3-.5 3-1.3V4.6c-.5-1-1.6-1.6-2-1.6z"/><path d="M14.5 3A3.5 3.5 0 0 1 18 6.5c2 .5 3.5 2.2 3.5 4.5 0 1.6-.7 3-1.8 3.9.2.5.3 1 .3 1.6a4.5 4.5 0 0 1-4.5 4.5c-1.2 0-2.3-.5-3-1.3V4.6c.5-1 1.6-1.6 2-1.6z"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2l10 6-10 6L2 8z"/><path d="M2 13l10 6 10-6"/><path d="M2 17.5l10 6 10-6" opacity=".45"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="i-ring" viewBox="0 0 24 24"><circle cx="12" cy="14" r="6"/><path d="M9 8l1.5-3h3L15 8"/></symbol>
+</svg>
+<div class="orb a"></div>
+<div class="orb b"></div>
+<div class="orb c"></div>
+<div id="twinkle"></div>
+<div id="hearts"></div>
+<div id="toast" role="status"></div>
+<div class="wrap">
+<header class="fade">
+<p class="overline">Vũ trụ đã an bài</p>
+<h1 class="romantic grad">Bói Tình Yêu</h1>
+<p class="sub">Ensemble khách quan • Quy tắc cổ điển có tài liệu • Đối xứng tuyệt đối</p>
+<div class="divider"><i></i><svg class="icon"><use href="#i-heart"/></svg><i></i></div>
+<p class="sub" style="font-size:.8rem;font-style:italic;margin-top:.7rem">Aspect chiêm tinh • Tình bạn hành tinh Vedic • Ngũ hành • Can chi • Bát trạch • Trụ ngày JDN</p>
+</header>
+<nav class="tabs fade d1"><div class="tabs-in">
+<button type="button" class="tab active" id="tab-divine" onclick="switchTab('divine')"><svg class="icon"><use href="#i-crystal"/></svg><span>Xem bói</span></button>
+<button type="button" class="tab" id="tab-history" onclick="switchTab('history')"><svg class="icon"><use href="#i-clock"/></svg><span>Lịch sử</span></button>
+<button type="button" class="tab" id="tab-leaderboard" onclick="switchTab('leaderboard')"><svg class="icon"><use href="#i-trophy"/></svg><span>Top tình yêu</span></button>
+</div></nav>
+<section id="content-divine">
+<div class="sheet fade d2">
+<div class="grid2">
+<div class="panel">
+<div class="p-head"><span class="p-ico one"><svg class="icon"><use href="#i-user"/></svg></span><h3>Người thứ nhất</h3></div>
+<div class="field"><label for="name1">Tên của bạn (3–30 ký tự)</label><input id="name1" class="input" type="text" placeholder="Nhập tên..." autocomplete="off" maxlength="30" minlength="3"></div>
+<div class="field"><label>Ngày tháng năm sinh</label><div class="date-row"><select id="day1" class="input" aria-label="Ngày"></select><select id="month1" class="input" aria-label="Tháng"></select><select id="year1" class="input" aria-label="Năm"></select></div></div>
+<div class="field"><label for="hour1">Giờ sinh (mở khóa Tàng Nguyệt &amp; Cung Mọc)</label><select id="hour1" class="input"></select></div>
+<div class="field"><label for="gender1">Giới tính</label><select id="gender1" class="input"><option value="male">Nam</option><option value="female">Nữ</option><option value="other">Khác</option></select></div>
+</div>
+<div class="panel">
+<div class="p-head"><span class="p-ico two"><svg class="icon"><use href="#i-hearts"/></svg></span><h3>Người thứ hai</h3></div>
+<div class="field"><label for="name2">Tên người ấy (3–30 ký tự)</label><input id="name2" class="input" type="text" placeholder="Nhập tên..." autocomplete="off" maxlength="30" minlength="3"></div>
+<div class="field"><label>Ngày tháng năm sinh</label><div class="date-row"><select id="day2" class="input" aria-label="Ngày"></select><select id="month2" class="input" aria-label="Tháng"></select><select id="year2" class="input" aria-label="Năm"></select></div></div>
+<div class="field"><label for="hour2">Giờ sinh (mở khóa Tàng Nguyệt &amp; Cung Mọc)</label><select id="hour2" class="input"></select></div>
+<div class="field"><label for="gender2">Giới tính</label><select id="gender2" class="input"><option value="female">Nữ</option><option value="male">Nam</option><option value="other">Khác</option></select></div>
+</div>
+</div>
+<div class="center mt"><button type="button" id="divine-btn" class="btn btn-lg" onclick="divine()"><svg class="icon"><use href="#i-spark"/></svg><span>KHÁM PHÁ TÌNH YÊU</span><svg class="icon"><use href="#i-spark"/></svg></button></div>
+</div>
+<div id="loading" class="sheet center mt" hidden>
+<div class="loader"><div class="lring"></div><div class="lring r2"></div><svg class="icon lheart"><use href="#i-heart"/></svg></div>
+<p id="loading-text" class="sub" style="margin-top:1.2rem">Đang phân tích duyên phận...</p>
+<div class="lbar"><i id="loading-bar"></i></div>
+</div>
+<div id="results" hidden></div>
+</section>
+<section id="content-history" hidden><div class="sheet">
+<h2 class="card-title" style="font-size:1.3rem;margin-bottom:1.2rem"><span class="t-rose"><svg class="icon"><use href="#i-clock"/></svg></span> <span class="grad">Lịch sử xem bói gần đây</span></h2>
+<div id="history-list"><p class="center" style="color:var(--muted);padding:2rem 0">Chưa có lịch sử nào...</p></div>
+</div></section>
+<section id="content-leaderboard" hidden><div class="sheet">
+<h2 class="card-title" style="font-size:1.3rem;margin-bottom:1.2rem"><span class="t-amber"><svg class="icon"><use href="#i-trophy"/></svg></span> <span class="grad">Top những cặp đôi hợp nhau nhất</span></h2>
+<div id="leaderboard-list"><p class="center" style="color:var(--muted);padding:2rem 0">Chưa có dữ liệu...</p></div>
+</div></section>
+<footer class="foot">© 2026 Nguyễn Tuấn Anh • Made with 💝</footer>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+<script>
+firebase.initializeApp({databaseURL:'https://boitoan-f8f61-default-rtdb.asia-southeast1.firebasedatabase.app/'});
+const db=firebase.database();
+const $=id=>document.getElementById(id);
+const I=(n,c='')=>`<svg class="icon ${c}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pad2=n=>String(n).padStart(2,'0');
+(function(){
+  const block=t=>{const g=t.target.tagName;return g!=='INPUT'&&g!=='SELECT'&&g!=='TEXTAREA'};
+  document.addEventListener('selectstart',e=>{if(block(e))e.preventDefault()});
+  document.addEventListener('copy',e=>e.preventDefault());
+  document.addEventListener('cut',e=>e.preventDefault());
+  document.addEventListener('dragstart',e=>e.preventDefault());
+  document.addEventListener('paste',e=>e.preventDefault());
+  document.addEventListener('contextmenu',e=>{if(block(e))e.preventDefault()});
+  document.addEventListener('keydown',e=>{
+    if((e.ctrlKey||e.metaKey)&&['v','V','+','-','=','0'].includes(e.key))e.preventDefault();
+  });
+  document.addEventListener('wheel',e=>{if(e.ctrlKey)e.preventDefault()},{passive:false});
+  document.addEventListener('gesturestart',e=>e.preventDefault());
+  document.addEventListener('touchmove',e=>{if(e.touches.length>1)e.preventDefault()},{passive:false});
+})();
+const ZN=['Bạch Dương','Kim Ngưu','Song Tử','Cự Giải','Sư Tử','Xử Nữ','Thiên Bình','Thiên Yết','Nhân Mã','Ma Kết','Bảo Bình','Song Ngư'];
+const ZS=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+const EL=['Lửa','Đất','Khí','Nước'];
+const ZE=[0,1,2,3,0,1,2,3,0,1,2,3];
+const STEM=['Giáp','Ất','Bính','Đinh','Mậu','Kỷ','Canh','Tân','Nhâm','Quý'];
+const BR=['Tý','Sửu','Dần','Mão','Thìn','Tỵ','Ngọ','Mùi','Thân','Dậu','Tuất','Hợi'];
+const NAYIN=['Hải Trung Kim','Lư Trung Hỏa','Đại Lâm Mộc','Lộ Bàng Thổ','Kiếm Phong Kim','Sơn Đầu Hỏa','Giản Hạ Thủy','Thành Đầu Thổ','Bạch Lạp Kim','Dương Liễu Mộc','Tuyền Trung Thủy','Ốc Thượng Thổ','Tích Lịch Hỏa','Tùng Bách Mộc','Trường Lưu Thủy','Sa Trung Kim','Sơn Hạ Hỏa','Bình Địa Mộc','Bích Thượng Thổ','Kim Bạch Kim','Phú Đăng Hỏa','Thiên Hà Thủy','Đại Dịch Thổ','Thoa Xuyến Kim','Tang Đố Mộc','Đại Khê Thủy','Sa Trung Thổ','Thiên Thượng Hỏa','Thạch Lựu Mộc','Đại Hải Thủy'];
+const CAN_NH={Giáp:'Mộc',Ất:'Mộc',Bính:'Hỏa',Đinh:'Hỏa',Mậu:'Thổ',Kỷ:'Thổ',Canh:'Kim',Tân:'Kim',Nhâm:'Thủy',Quý:'Thủy'};
+const CHI_NH={Tý:'Thủy',Hợi:'Thủy',Dần:'Mộc',Mão:'Mộc',Tỵ:'Hỏa',Ngọ:'Hỏa',Thân:'Kim',Dậu:'Kim',Thìn:'Thổ',Tuất:'Thổ',Sửu:'Thổ',Mùi:'Thổ'};
+const SINH=[['Kim','Thủy'],['Thủy','Mộc'],['Mộc','Hỏa'],['Hỏa','Thổ'],['Thổ','Kim']];
+const KHAC=[['Kim','Mộc'],['Mộc','Thổ'],['Thổ','Thủy'],['Thủy','Hỏa'],['Hỏa','Kim']];
+const TAM_HOP=[['Tý','Thìn','Thân'],['Sửu','Tỵ','Dậu'],['Dần','Ngọ','Tuất'],['Mão','Mùi','Hợi']];
+const NHI_HOP=[['Tý','Sửu'],['Dần','Hợi'],['Mão','Tuất'],['Thìn','Dậu'],['Tỵ','Thân'],['Ngọ','Mùi']];
+const TU_XUNG=[['Tý','Ngọ','Mão','Dậu'],['Thìn','Tuất','Sửu','Mùi'],['Dần','Thân','Tỵ','Hợi']];
+const LUC_HAI=[['Tý','Mùi'],['Sửu','Ngọ'],['Dần','Tỵ'],['Mão','Thìn'],['Thân','Hợi'],['Dậu','Tuất']];
+const TAM_HINH=[['Dần','Tỵ'],['Tỵ','Thân'],['Dần','Thân'],['Sửu','Mùi'],['Mùi','Tuất'],['Sửu','Tuất']];
+const LUC_HOP_CAN=[['Giáp','Kỷ'],['Ất','Canh'],['Bính','Tân'],['Đinh','Nhâm'],['Mậu','Quý']];
+const LUC_XUNG_CAN=[['Giáp','Canh'],['Ất','Tân'],['Bính','Nhâm'],['Đinh','Quý']];
+const QUAI_EL={1:'Thủy',2:'Thổ',3:'Mộc',4:'Mộc',6:'Kim',7:'Kim',8:'Thổ',9:'Hỏa'};
+const EAST=[1,3,4,9];
+const PY={a:1,b:2,c:3,d:4,e:5,f:6,g:7,h:8,i:9,j:1,k:2,l:3,m:4,n:5,o:6,p:7,q:8,r:9,s:1,t:2,u:3,v:4,w:5,x:6,y:7,z:8};
+const PLANET={1:'Sun',2:'Moon',3:'Jup',4:'Rahu',5:'Mer',6:'Ven',7:'Ketu',8:'Sat',9:'Mars',11:'Moon',22:'Sat',33:'Ven'};
+const FR={Sun:['Moon','Mars','Jup'],Moon:['Sun','Mer'],Mars:['Sun','Moon','Jup'],Mer:['Sun','Ven'],Jup:['Sun','Moon','Mars'],Ven:['Mer','Sat'],Sat:['Mer','Ven'],Rahu:['Jup','Sun','Moon'],Ketu:['Mars','Jup']};
+const EN={Sun:['Ven','Sat'],Moon:[],Mars:['Mer'],Mer:['Moon'],Jup:['Mer','Ven'],Ven:['Sun','Moon'],Sat:['Sun','Moon','Mars'],Rahu:['Ven','Sat'],Ketu:['Sun','Moon']};
+const HL={Tý:'Mão',Sửu:'Dần',Dần:'Sửu',Mão:'Tý',Thìn:'Tuất',Tỵ:'Dậu',Ngọ:'Thân',Mùi:'Mùi',Thân:'Ngọ',Dậu:'Tỵ',Tuất:'Thìn',Hợi:'Hợi'};
+const ARCANA=[['The Fool','Khởi đầu tự do, dám yêu không điều kiện'],['The Magician','Hấp dẫn mạnh, biết biến cảm xúc thành hành động'],['The High Priestess','Kết nối tâm linh, hiểu nhau không cần nói'],['The Empress','Dồi dào yêu thương, che chở và nuôi dưỡng'],['The Emperor','Ổn định, cam kết và bảo vệ'],['The Lovers','Sự lựa chọn của trái tim, hòa hợp sâu sắc'],['The Chariot','Cùng nhau vượt qua trở ngại'],['Strength','Kiên nhẫn thuần phục khác biệt bằng dịu dàng'],['The Hermit','Cần không gian riêng để trân trọng nhau'],['Wheel of Fortune','Duyên phận xoay vần, thời cơ đến'],['Justice','Công bằng, thẳng thắn trong mối quan hệ'],['The Hanged Man','Góc nhìn mới khi biết nhường nhịn'],['Death','Bước ngoặt, tái sinh tình yêu'],['Temperance','Cân bằng, hòa hợp lâu dài'],['The Devil','Quyến rũ mãnh liệt, cần tỉnh táo'],['The Tower','Thử thách lớn phá vỡ để xây lại'],['The Star','Hy vọng và chữa lành'],['The Moon','Cảm xúc sâu, cần thành thật'],['The Sun','Niềm vui rạng rỡ, hạnh phúc công khai'],['Judgement','Tha thứ và khởi đầu lại'],['The World','Trọn vẹn, viên mãn viên tròn'],['Page of Cups','Tin nhắn ngọt ngào, rung động đầu đời']];
+const LOVE=[0,70,90,82,58,75,92,62,68,95];
+(function(){
+  if(RM)return;
+  const b=$('twinkle'),f=document.createDocumentFragment(),cl=['#ff9ec2','#c4a5ff','#ffc9de'];
+  for(let i=0;i<24;i++){
+    const s=document.createElement('div');
+    s.className='tw';
+    const z=(Math.random()*2.4+1.2).toFixed(1);
+    s.style.cssText=`width:${z}px;height:${z}px;background:${cl[i%3]};top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${(Math.random()*3+2.4).toFixed(1)}s;animation-delay:${(Math.random()*3).toFixed(1)}s`;
+    f.appendChild(s);
+  }
+  b.appendChild(f);
+})();
+(function(){
+  if(RM)return;
+  const b=$('hearts');
+  let a=0;
+  setInterval(()=>{
+    if(document.hidden||a>=4)return;
+    a++;
+    const h=document.createElement('div');
+    h.className='fh';
+    h.style.left=(Math.random()*96)+'%';
+    h.style.animationDuration=(7+Math.random()*3).toFixed(1)+'s';
+    h.innerHTML=I('heart');
+    h.firstElementChild.style.cssText='width:100%;height:100%;stroke-width:1.6';
+    h.addEventListener('animationend',()=>{h.remove();a--},{once:true});
+    b.appendChild(h);
+  },2600);
+})();
+(function(){
+  const o=(v,t)=>`<option value="${v}">${t}</option>`;
+  let d='<option value="">Ngày</option>',m='<option value="">Tháng</option>',y='<option value="">Năm</option>',h='<option value="">Không rõ</option>';
+  for(let i=1;i<=31;i++)d+=o(i,i);
+  for(let i=1;i<=12;i++)m+=o(i,i);
+  for(let i=new Date().getFullYear()-12;i>=1940;i--)y+=o(i,i);
+  ['Tý (23h–1h)','Sửu (1h–3h)','Dần (3h–5h)','Mão (5h–7h)','Thìn (7h–9h)','Tỵ (9h–11h)','Ngọ (11h–13h)','Mùi (13h–15h)','Thân (15h–17h)','Dậu (17h–19h)','Tuất (19h–21h)','Hợi (21h–23h)'].forEach((t,i)=>h+=o(i,t));
+  for(const n of['1','2']){
+    $('day'+n).innerHTML=d;
+    $('month'+n).innerHTML=m;
+    $('year'+n).innerHTML=y;
+    $('hour'+n).innerHTML=h;
+  }
+})();
+let currentTab='divine';
+function switchTab(tab){
+  for(const t of['divine','history','leaderboard'])$('tab-'+t).classList.toggle('active',t===tab);
+  if(tab===currentTab)return;
+  const o=$('content-'+currentTab),nw=$('content-'+tab);
+  o.classList.add('leaving');
+  setTimeout(()=>{
+    o.hidden=true;
+    o.classList.remove('leaving');
+    nw.hidden=false;
+    nw.classList.remove('section-anim');
+    void nw.offsetWidth;
+    nw.classList.add('section-anim');
+    currentTab=tab;
+    if(tab==='history')loadHistory();
+    if(tab==='leaderboard')loadLeaderboard();
+  },RM?0:150);
+}
+const hanhOf=t=>t.split(' ').pop();
+const reduce19=v=>{while(v>9)v=String(v).split('').reduce((a,b)=>a+ +b,0);return v};
+const reduceN=v=>{while(v>9&&![11,22,33].includes(v))v=String(v).split('').reduce((a,b)=>a+ +b,0);return v};
+const elRel=(a,b)=>{
+  if(a===b)return 78;
+  for(const[p,q]of SINH)if((a===p&&b===q)||(a===q&&b===p))return 90;
+  for(const[p,q]of KHAC)if((a===p&&b===q)||(a===q&&b===p))return 40;
+  return 65;
+};
+const nhPair=(h1,h2)=>{
+  const s=elRel(h1,h2);
+  return{score:s,desc:h1===h2?'Cùng mệnh - Hỗ trợ nhau':s>=90?'Tương sinh - Rất tốt':s<=40?'Tương khắc - Cần cẩn trọng':'Bình hòa'};
+};
+const jdn=(y,m,d)=>{
+  const a=Math.floor((14-m)/12),y2=y+4800-a,m2=m+12*a-3;
+  return d+Math.floor((153*m2+2)/5)+365*y2+Math.floor(y2/4)-Math.floor(y2/100)+Math.floor(y2/400)-32045;
+};
+const pillar=gz=>{
+  const t=NAYIN[Math.floor(gz/2)%30];
+  return{can:STEM[gz%10],chi:BR[gz%12],ten:t,hanh:hanhOf(t)};
+};
+const yearPillar=y=>pillar((y-4)%60);
+const dayPillar=dob=>{
+  const y=+dob.slice(0,4),m=+dob.slice(5,7),d=+dob.slice(8,10);
+  return pillar((jdn(y,m,d)+49)%60);
+};
+const dayPillarDate=dt=>dayPillar(`${dt.getFullYear()}-${pad2(dt.getMonth()+1)}-${pad2(dt.getDate())}`);
+const pairIn=(list,a,b)=>list.some(p=>(p[0]===a&&p[1]===b)||(p[0]===b&&p[1]===a));
+const groupIn=(list,a,b)=>list.some(g=>g.includes(a)&&g.includes(b));
+function chiRel(a,b){
+  if(a===b)return{score:70,desc:'Đồng chi - Thấu hiểu'};
+  if(groupIn(TAM_HOP,a,b))return{score:95,desc:'Tam hợp - Duyên trời định'};
+  if(pairIn(NHI_HOP,a,b))return{score:85,desc:'Nhị hợp - Rất tốt'};
+  if(groupIn(TU_XUNG,a,b))return{score:30,desc:'Tứ hành xung - Xung khắc'};
+  if(pairIn(LUC_HAI,a,b))return{score:45,desc:'Lục hại - Dễ khắc khẩu'};
+  if(pairIn(TAM_HINH,a,b))return{score:40,desc:'Tam hình - Dễ tổn thương'};
+  return{score:60,desc:'Bình thường'};
+}
+function canRel(c1,c2){
+  if(pairIn(LUC_HOP_CAN,c1,c2))return{score:90,desc:'Lục hợp - Rất tốt'};
+  if(pairIn(LUC_XUNG_CAN,c1,c2))return{score:40,desc:'Lục xung - Xung khắc'};
+  return{score:65,desc:'Bình hòa'};
+}
+const mingQuai=(y,gender)=>{
+  let r=y%100;
+  r=r===0?9:reduce19(r);
+  let q=gender==='female'?r+4:11-r;
+  q=((q-1)%9)+1;
+  if(q===5)q=gender==='female'?2:8;
+  return{num:q,el:QUAI_EL[q],east:EAST.includes(q)};
+};
+function batTrach(a,b){
+  const same=a.east===b.east;
+  const base=same?82:46;
+  const mod=(elRel(a.el,b.el)-65)*.25;
+  return{score:Math.round(Math.max(30,Math.min(95,base+mod))),desc:same?(a.el===b.el?'Đồng quần & đồng hành':'Cùng nhóm Tứ Mệnh - hòa hợp'):'Khác nhóm Tứ Mệnh - cần hóa giải'};
+}
+const ASP=[78,60,85,45,95,48,58];
+const aspectScore=(i,j)=>{
+  const k=Math.abs(i-j)%12;
+  return ASP[Math.min(k,12-k)];
+};
+const zIdx=(d,m)=>(m===3&&d>=21)?0:m===4?(d<=19?0:1):m===5?(d<=20?1:2):m===6?(d<=20?2:3):m===7?(d<=22?3:4):m===8?(d<=22?4:5):m===9?(d<=22?5:6):m===10?(d<=22?6:7):m===11?(d<=21?7:8):m===12?(d<=21?8:9):m===1?(d<=19?9:10):d<=18?10:11;
+const zodiac=ds=>{
+  const dt=new Date(ds),i=zIdx(dt.getDate(),dt.getMonth()+1);
+  return{sign:ZN[i],symbol:ZS[i],element:EL[ZE[i]],index:i};
+};
+const moonSign=ds=>{
+  const dt=new Date(ds);
+  let L=(218.316+13.176396*(jdn(dt.getFullYear(),dt.getMonth()+1,dt.getDate())-2451545))%360;
+  if(L<0)L+=360;
+  const i=Math.floor(L/30)%12;
+  return{sign:ZN[i],symbol:ZS[i],element:EL[ZE[i]],index:i};
+};
+const ascSign=(sunIdx,hour)=>hour===''||hour==null?null:((sunIdx+Math.round(((+hour+.5)*2-6)/2))%12+12)%12;
+const lifePath=s=>reduceN(s.replace(/\D/g,'').split('').reduce((a,b)=>a+ +b,0));
+const destiny=n=>{
+  let v=0;
+  for(const c of n.toLowerCase())if(PY[c])v+=PY[c];
+  return reduceN(v)||0;
+};
+const lettersNum=(n,vow)=>{
+  let v=0;
+  for(const c of n.toLowerCase())if(PY[c]&&('aeiou'.includes(c)===vow))v+=PY[c];
+  return reduceN(v)||0;
+};
+const dayNum=dob=>reduceN(parseInt(dob.slice(8,10),10));
+const personalYear=(dob,year)=>reduceN(reduceN(parseInt(dob.slice(8,10),10))+reduceN(parseInt(dob.slice(5,7),10))+reduceN(year));
+const rel1=(a,b)=>FR[a].includes(b)?88:EN[a].includes(b)?42:65;
+const numSym=(a,b)=>{
+  const p=PLANET[a]||'Sun',q=PLANET[b]||'Sun';
+  return(rel1(p,q)+rel1(q,p))/2;
+};
+function flames(n1,n2){
+  const c={};
+  for(const ch of n1.toLowerCase().replace(/[^a-z]/g,''))c[ch]=(c[ch]||0)+1;
+  for(const ch of n2.toLowerCase().replace(/[^a-z]/g,''))c[ch]=(c[ch]||0)-1;
+  const diff=Object.values(c).reduce((a,b)=>a+Math.abs(b),0);
+  const list=['Friends','Love','Affection','Marriage','Enemy','Siblings'];
+  while(list.length>1){
+    const i=(diff%list.length)-1;
+    list.splice(i<0?list.length-1:i,1);
+  }
+  return list[0];
+}
+let W={e:.40,w:.35,n:.25};
+db.ref('config/weights').once('value').then(s=>{
+  const v=s.val();
+  if(v&&v.e!=null)W={e:+v.e,w:+v.w,n:+v.n};
+}).catch(()=>{});
+let pushTimer;
+const saveWeights=()=>{
+  clearTimeout(pushTimer);
+  pushTimer=setTimeout(()=>db.ref('config/weights').set(W).catch(()=>{}),1200);
+};
+function learnFromRating(r,c){
+  const t=r*20,lr=.018;
+  let e=W.e-(c.e-t)*lr/100,w=W.w-(c.w-t)*lr/100,n=W.n-(c.n-t)*lr/100;
+  e=Math.min(.6,Math.max(.18,e));
+  w=Math.min(.6,Math.max(.18,w));
+  n=Math.min(.6,Math.max(.18,n));
+  const s=e+w+n;
+  W={e:e/s,w:w/s,n:n/s};
+  saveWeights();
+}
+function analyze(d){
+  const Y=new Date().getFullYear();
+  const y1=+d.dob1.slice(0,4),y2=+d.dob2.slice(0,4);
+  const p1=yearPillar(y1),p2=yearPillar(y2);
+  const nhNam=nhPair(p1.hanh,p2.hanh);
+  const ccRel=chiRel(p1.chi,p2.chi),ccCan=canRel(p1.can,p2.can);
+  const ccQH=Math.round(ccRel.score*.6+ccCan.score*.4);
+  const ccNH=Math.round((elRel(CAN_NH[p1.can],CAN_NH[p2.can])+elRel(CHI_NH[p1.chi],CHI_NH[p2.chi]))/2);
+  const dp1=dayPillar(d.dob1),dp2=dayPillar(d.dob2),nhNgay=nhPair(dp1.hanh,dp2.hanh);
+  const bt=batTrach(mingQuai(y1,d.gender1),mingQuai(y2,d.gender2));
+  const east=Math.round(nhNam.score*.28+ccQH*.22+ccNH*.12+nhNgay.score*.24+bt.score*.14);
+  const z1=zodiac(d.dob1),z2=zodiac(d.dob2);
+  const sunScore=aspectScore(z1.index,z2.index);
+  const m1=moonSign(d.dob1),m2=moonSign(d.dob2);
+  const mmScore=aspectScore(m1.index,m2.index);
+  const smScore=Math.round((aspectScore(z1.index,m2.index)+aspectScore(z2.index,m1.index))/2);
+  const a1=ascSign(z1.index,d.hour1),a2=ascSign(z2.index,d.hour2);
+  const ascNote=a1!=null&&a2!=null?{i1:a1,i2:a2}:null;
+  const west=ascNote?Math.round(sunScore*.34+mmScore*.30+smScore*.20+aspectScore(a1,a2)*.16):Math.round(sunScore*.42+mmScore*.34+smScore*.24);
+  const lp1=lifePath(d.dob1),lp2=lifePath(d.dob2);
+  const dn1=destiny(d.name1),dn2=destiny(d.name2);
+  const su1=lettersNum(d.name1,true),su2=lettersNum(d.name2,true);
+  const pe1=lettersNum(d.name1,false),pe2=lettersNum(d.name2,false);
+  const dy1=dayNum(d.dob1),dy2=dayNum(d.dob2);
+  const py1=personalYear(d.dob1,Y),py2=personalYear(d.dob2,Y);
+  const num=Math.round(numSym(lp1,lp2)*.26+numSym(dn1,dn2)*.18+numSym(su1,su2)*.14+numSym(pe1,pe2)*.14+numSym(dy1,dy2)*.16+numSym(py1,py2)*.12);
+  const score=Math.max(5,Math.min(99,Math.round(east*W.e+west*W.w+num*W.n)));
+  const spread=Math.max(east,west,num)-Math.min(east,west,num);
+  return{score,confidence:Math.max(45,Math.min(99,Math.round(100-spread*.7))),east,west,num,W:{...W},p1,p2,nhNam,ccRel,ccCan,ccQH,ccNH,dp1,dp2,nhNgay,bt,z1,z2,m1,m2,sunScore,mmScore,smScore,ascNote,lp1,lp2,dn1,dn2,su1,su2,pe1,pe2,dy1,dy2,py1,py2,ageDiff:Math.abs(y1-y2),flames:flames(d.name1,d.name2),year:Y};
+}
+function hashStr(s){
+  let h=2166136261;
+  for(let i=0;i<s.length;i++){
+    h^=s.charCodeAt(i);
+    h=Math.imul(h,16777619);
+  }
+  return h>>>0;
+}
+function tarotDraw(d){
+  const pos=['Quá khứ','Hiện tại','Tương lai'];
+  const used=new Set();
+  const out=[];
+  let x=hashStr(d.name1+'|'+d.name2+'|'+d.dob1+'|'+d.dob2);
+  for(let i=0;i<3;i++){
+    x=(Math.imul(x,1103515245)+12345)>>>0;
+    let idx=x%22;
+    while(used.has(idx))idx=(idx+1)%22;
+    used.add(idx);
+    out.push({pos:pos[i],card:ARCANA[idx]});
+  }
+  return out;
+}
+function forecast12(d){
+  const now=new Date(),M=now.getMonth()+1,Y=now.getFullYear();
+  const b1=parseInt(d.dob1.slice(8,10),10),b2=parseInt(d.dob2.slice(8,10),10);
+  const pts=[];
+  for(let k=0;k<12;k++){
+    let mo=M+k,yr=Y;
+    while(mo>12){mo-=12;yr++}
+    const v=Math.round(((LOVE[reduce19(b1+mo+personalYear(d.dob1,yr))]||70)+(LOVE[reduce19(b2+mo+personalYear(d.dob2,yr))]||70))/2);
+    pts.push({mo,yr,v,label:mo+'/'+yr});
+  }
+  return pts;
+}
+function goodDays(d){
+  const p1=yearPillar(+d.dob1.slice(0,4)),p2=yearPillar(+d.dob2.slice(0,4));
+  const today=new Date();
+  const res=[];
+  for(let k=1;k<=90;k++){
+    const dt=new Date(today);
+    dt.setDate(today.getDate()+k);
+    const dp=dayPillarDate(dt);
+    let s=60;
+    s+=elRel(dp.hanh,p1.hanh)>=90?12:elRel(dp.hanh,p1.hanh)<=40?-12:0;
+    s+=elRel(dp.hanh,p2.hanh)>=90?12:elRel(dp.hanh,p2.hanh)<=40?-12:0;
+    s+=(chiRel(dp.chi,p1.chi).score-60)*.4+(chiRel(dp.chi,p2.chi).score-60)*.4;
+    res.push({dt,dp,s:Math.round(s)});
+  }
+  return res.sort((a,b)=>b.s-a.s).slice(0,5);
+}
+function marriageYears(d){
+  const tg=new Set([HL[yearPillar(+d.dob1.slice(0,4)).chi],HL[yearPillar(+d.dob2.slice(0,4)).chi]]);
+  const Y=new Date().getFullYear();
+  const out=[];
+  for(let y=Y;y<=Y+6;y++){
+    const b=BR[(y-4)%12];
+    if(tg.has(b))out.push({y,br:b});
+  }
+  return out.slice(0,3);
+}
+const color=s=>s>=85?'#0f9d6e':s>=70?'#d97706':s>=50?'#ea580c':'#dc2626';
+const title=s=>s>=90?'TRỜI SINH MỘT ĐÔI':s>=80?'RẤT HỢP NHAU':s>=70?'KHÁ HỢP':s>=60?'HÒA HỢP':s>=50?'BÌNH THƯỜNG':s>=40?'CẦN CỐ GẮNG':'CẦN THẤU HIỂU';
+function advice(s){
+  if(s>=85)return['Hai bạn như mảnh ghép hoàn hảo! Hãy trân trọng và nuôi dưỡng mỗi ngày.','Sự đồng điệu hiếm có - duyên phận trời ban.','Cùng xây tương lai, vũ trụ đã an bài hai bạn bên nhau.'];
+  if(s>=70)return['Mối quan hệ rất tiềm năng. Hãy thấu hiểu nhau nhiều hơn.','Khác biệt tạo nên sự thú vị - hãy bổ sung cho nhau.','Tình yêu cần vun đắp, cùng vượt thử thách để bền vững.'];
+  if(s>=50)return['Hòa hợp cơ bản nhưng cần nỗ lực để gắn kết.','Bày tỏ cảm xúc và lắng nghe - giao tiếp là chìa khóa.','Kiên nhẫn với nhau, mỗi ngày một chút tình yêu sẽ đơm hoa.'];
+  return['Cần nhiều nỗ lực và thấu hiểu, hãy kiên nhẫn vị tha.','Khác biệt không có nghĩa không thể bên nhau - tìm điểm chung.','Trò chuyện nhiều hơn, đặt mình vào vị trí đối phương.'];
+}
+const pill=s=>`<span class="pill" style="background:${color(s)}16;color:${color(s)}">${s}%</span>`;
+const bar=w=>`<div class="bar"><i data-w="${w}"></i></div>`;
+const cluRow=(nm,v,col)=>`<div class="clu"><span class="nm">${nm}</span><span class="tr"><i data-w="${v}" style="background:${col}"></i></span><span class="vv" style="color:${col}">${v}</span></div>`;
+const chipRow=(l,v,desc,s,mt='')=>`<div class="chip" style="padding:.8rem${mt}"><div style="display:flex;justify-content:space-between;font-size:.85rem"><span style="color:var(--muted)">${l}</span><b>${v}</b></div>${desc?`<div style="font-size:.76rem;color:var(--muted)">${desc}</div>`:''}${s!=null?bar(s):''}</div>`;
+const skyCol=(z,m)=>`<div class="chip center" style="padding:.8rem"><div class="zbadge">${z.symbol}</div><b style="font-size:.85rem">${z.sign}</b><div style="font-size:.72rem;color:var(--muted)">${I('sun')} Sun</div><div class="zbadge" style="width:46px;height:46px;font-size:1.2rem;margin-top:.4rem">${m.symbol}</div><b style="font-size:.78rem">${m.sign}</b><div style="font-size:.72rem;color:var(--muted)">${I('moon')} Moon</div></div>`;
+const numCol=(lp,su,pe,dy,py)=>`<div class="chip center" style="padding:.8rem"><b class="grad" style="font-size:1.6rem">${lp}</b><div style="font-size:.72rem;color:var(--muted)">Sứ mệnh</div><div style="font-size:.78rem;margin-top:.3rem">Hồn ${su} · Cách ${pe}</div><div style="font-size:.72rem;color:var(--muted)">Ngày ${dy} · Vận ${py}</div></div>`;
+const rowWrap=(inner,delay=0)=>`<div class="row stag" style="animation-delay:${delay}ms">${inner}</div>`;
+const heartIcon=s=>`<span style="color:${color(s)};display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:50%;background:${color(s)}14">${I('heart')}</span>`;
+const nameBlock=(t,sub)=>`<div style="flex:1;min-width:0"><b style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t}</b><span style="display:block;font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${sub}</span></div>`;
+const scoreB=(s,fs)=>`<b style="color:${color(s)};font-size:${fs};flex:none;margin-left:auto">${s}%</b>`;
+let LAST=null,rated=false;
+function renderResults(d,a){
+  LAST={d,a};
+  const C=color(a.score),off=565.48-(a.score/100)*565.48,adv=advice(a.score);
+  const tar=tarotDraw(d),fc=forecast12(d),gd=goodDays(d),my=marriageYears(d);
+  const fcMax=Math.max(...fc.map(p=>p.v)),fcMin=Math.min(...fc.map(p=>p.v));
+  const W2=100,H=120,pd=8;
+  const pts=fc.map((p,i)=>{
+    const x=pd+i*(W2-2*pd)/11;
+    const y=H-pd-((p.v-fcMin)/(fcMax-fcMin||1))*(H-2*pd);
+    return{x,y,p};
+  });
+  const poly=pts.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  const area=`${pd},${H-pd} ${poly} ${W2-pd},${H-pd}`;
+  const peak=fc.find(p=>p.v===fcMax);
+  $('results').innerHTML=`
+<div class="sheet center fade" style="margin-top:1.6rem">
+<p class="overline">Kết quả duyên phận</p>
+<p class="names romantic" style="margin:.5rem 0 1.2rem">${d.name1} &nbsp;${I('heart')}&nbsp; ${d.name2}</p>
+<div class="grid2" style="align-items:center;justify-items:center;gap:1.6rem">
+<div class="score-box">
+<svg class="ring" width="225" height="225" viewBox="0 0 256 256"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4d8d"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><circle class="track" cx="128" cy="128" r="90" stroke-width="15" fill="none"/><circle class="val" id="ring-val" cx="128" cy="128" r="90" stroke="url(#rg)" stroke-width="15" fill="none"/></svg>
+<div class="score-num"><b id="score-number" style="color:${C}">0</b><span style="color:${C};font-size:1.25rem;font-weight:600">%</span></div>
+</div>
+<div>
+<h3 style="font-size:1.55rem;font-weight:700;color:${C};display:flex;align-items:center;justify-content:center;gap:.5rem">${I('heart')} ${title(a.score)}</h3>
+<p class="sub" style="max-width:34ch;margin:.7rem auto 0">${adv[0]}</p>
+<div>
+<span class="chip-inline jade">${I('layers')} 3 khối độc lập</span>
+<span class="chip-inline vio">${I('brain')} Đồng thuận: <b>${a.confidence}%</b></span>
+<span class="chip-inline">${I('flame')} FLAMES: <b>${a.flames}</b></span>
+</div>
+</div>
+</div>
+<div style="max-width:520px;margin:1.4rem auto 0;text-align:left">
+${cluRow('Đông Phương',a.east,'#0d9488')}
+${cluRow('Tây Phương',a.west,'#7c3aed')}
+${cluRow('Thần số học',a.num,'#e0447c')}
+<p style="font-size:.72rem;color:var(--muted);margin-top:.6rem;text-align:center">Trọng số đang chạy: Đông ${(a.W.e*100).toFixed(0)}% · Tây ${(a.W.w*100).toFixed(0)}% · Số học ${(a.W.n*100).toFixed(0)}% — tự học từ cộng đồng</p>
+</div>
+</div>
+<div class="grid2" style="margin-top:1.4rem">
+<div class="panel fade d1">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem"><h3 class="card-title"><span class="t-jade">${I('yinyang')}</span> Khối Đông Phương</h3>${pill(a.east)}</div>
+${chipRow('Nạp âm niên',`${a.p1.ten} - ${a.p2.ten}`,a.nhNam.desc,a.nhNam.score)}
+${chipRow('Can chi niên',`${a.p1.can}${a.p1.chi} - ${a.p2.can}${a.p2.chi}`,`${a.ccCan.desc} · ${a.ccRel.desc}`,a.ccQH,';margin-top:.6rem')}
+${chipRow('Trụ ngày',`${a.dp1.ten} - ${a.dp2.ten}`,a.nhNgay.desc,a.nhNgay.score,';margin-top:.6rem')}
+${chipRow('Bát Trạch',a.bt.desc,null,a.bt.score,';margin-top:.6rem')}
+</div>
+<div class="panel fade d1">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem"><h3 class="card-title"><span class="t-violet">${I('moon')}</span> Khối Tây Phương</h3>${pill(a.west)}</div>
+<div class="grid2" style="gap:.7rem">
+${skyCol(a.z1,a.m1)}
+${skyCol(a.z2,a.m2)}
+</div>
+${a.ascNote?chipRow(`${I('crystal')} Cung Mọc`,`${ZN[a.ascNote.i1]} - ${ZN[a.ascNote.i2]}`,null,null,';margin-top:.6rem'):`<p style="font-size:.74rem;color:var(--muted);margin-top:.6rem;text-align:center">Nhập giờ sinh để mở khóa Cung Mọc</p>`}
+${chipRow('Sun–Sun (aspect)',a.sunScore,null,a.sunScore,';margin-top:.6rem')}
+${chipRow('Moon–Moon (aspect)',a.mmScore,null,a.mmScore,';margin-top:.5rem')}
+${chipRow('Sun↔Moon chéo',a.smScore,null,a.smScore,';margin-top:.5rem')}
+</div>
+<div class="panel fade d2">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem"><h3 class="card-title"><span class="t-indigo">${I('hash')}</span> Thần Số Học Vedic</h3>${pill(a.num)}</div>
+<div class="grid2" style="gap:.7rem">
+${numCol(a.lp1,a.su1,a.pe1,a.dy1,a.py1)}
+${numCol(a.lp2,a.su2,a.pe2,a.dy2,a.py2)}
+</div>
+${chipRow('Cộng hưởng hành tinh',a.num,null,a.num,';margin-top:.6rem')}
+<p style="font-size:.8rem;color:var(--muted);margin-top:.6rem">Chênh lệch tuổi: ${a.ageDiff} năm (chỉ hiển thị, không tính điểm).</p>
+</div>
+<div class="panel fade d2">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem"><h3 class="card-title"><span class="t-rose">${I('flame')}</span> FLAMES &amp; Đồng thuận</h3>${pill(a.confidence)}</div>
+<div class="chip center" style="padding:1rem"><b style="font-size:1.3rem;color:var(--rose-d)">${a.flames}</b><div style="font-size:.76rem;color:var(--muted);margin-top:.3rem">Kết quả trò chơi FLAMES từ hai tên</div></div>
+${chipRow('Độ đồng thuận 3 khối',null,'Các khối càng thống nhất, kết quả càng đáng tin.',a.confidence,';margin-top:.6rem')}
+</div>
+</div>
+<div class="sheet fade d3" style="margin-top:1.4rem">
+<h3 class="card-title" style="font-size:1.2rem;margin-bottom:1rem"><span class="t-violet">${I('chart')}</span> <span class="grad">Vận trình tình yêu 12 tháng tới</span></h3>
+<svg class="fc-svg" viewBox="0 0 100 120" preserveAspectRatio="none">
+<defs><linearGradient id="fg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4d8d" stop-opacity=".35"/><stop offset="1" stop-color="#ff4d8d" stop-opacity="0"/></linearGradient></defs>
+<polygon points="${area}" fill="url(#fg)"/>
+<polyline points="${poly}" fill="none" stroke="#8b5cf6" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
+${pts.map(p=>`<circle class="fc-dot" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="1.6" fill="${p.p.v>=85?'#0f9d6e':p.p.v>=70?'#d97706':'#e0447c'}"><title>${p.p.label}: ${p.p.v}%</title></circle>`).join('')}
+</svg>
+<div style="display:flex;justify-content:space-between;font-size:.66rem;color:var(--muted);margin-top:.2rem"><span>${fc[0].label}</span><span>${fc[11].label}</span></div>
+<p style="font-size:.8rem;color:var(--muted);margin-top:.6rem;text-align:center">Đỉnh cao: <b style="color:#0f9d6e">${peak.label}</b> (${fcMax}%) — thời điểm vàng để tiến tới.</p>
+</div>
+<div class="grid2" style="margin-top:1.4rem">
+<div class="panel fade d3">
+<h3 class="card-title" style="margin-bottom:.9rem"><span class="t-amber">${I('calendar')}</span> Ngày lành tỏ tình / cưới</h3>
+${gd.map((g,i)=>`<div class="row" style="padding:.7rem .9rem"><div style="display:flex;align-items:center;gap:.7rem;min-width:0;flex:1"><span class="rank ${i<3?'r'+(i+1):''}">${i+1}</span><div style="min-width:0"><b style="font-size:.9rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${g.dt.getDate()}/${g.dt.getMonth()+1}/${g.dt.getFullYear()}</b><div style="font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${['CN','T2','T3','T4','T5','T6','T7'][g.dt.getDay()]} · ${g.dp.can}${g.dp.chi} · ${g.dp.ten}</div></div></div><b style="color:${color(g.s)};flex:none">${g.s}</b></div>`).join('')}
+</div>
+<div class="panel fade d3">
+<h3 class="card-title" style="margin-bottom:.9rem"><span class="t-rose">${I('ring')}</span> Năm động hôn</h3>
+${my.length?my.map(m=>`<div class="row" style="padding:.8rem .9rem"><div style="display:flex;align-items:center;gap:.7rem;min-width:0"><span class="p-ico one" style="width:40px;height:40px">${I('heart')}</span><div style="min-width:0"><b style="font-size:1.05rem">${m.y}</b><div style="font-size:.74rem;color:var(--muted)">Năm ${m.br} - trùng Hồng Loan/Thiên Hỷ, dễ cưới xin, đính hôn</div></div></div></div>`).join(''):'<p style="font-size:.85rem;color:var(--muted)">6 năm tới không rơi vào năm Hồng Loan nổi bật - tình yêu tự nhiên chín muồi khi cả hai sẵn sàng.</p>'}
+<p style="font-size:.74rem;color:var(--muted);margin-top:.7rem">* Dựa trên sao Hồng Loan theo địa chi năm sinh của hai bạn.</p>
+</div>
+</div>
+<div class="sheet fade d3" style="margin-top:1.4rem">
+<h3 class="card-title" style="font-size:1.2rem;margin-bottom:.4rem"><span class="t-violet">${I('crystal')}</span> <span class="grad">Tarot duyên phận</span></h3>
+<p style="font-size:.78rem;color:var(--muted);margin-bottom:1rem;text-align:center">Chạm vào lá bài để lật • Cùng một cặp luôn ra cùng ba lá</p>
+<div class="grid3">
+${tar.map(t=>`<div class="tarot"><div class="tpos">${t.pos}</div><div class="tcard" onclick="this.classList.toggle('flip')"><div class="tface tback">${I('spark')}<span style="font-size:.7rem;margin-top:.4rem;opacity:.7">Chạm để lật</span></div><div class="tface tfront"><b>${t.card[0]}</b><span>${t.card[1]}</span></div></div></div>`).join('')}
+</div>
+</div>
+<div class="sheet fade d3" style="margin-top:1.4rem">
+<h3 class="card-title" style="font-size:1.2rem;margin-bottom:1rem"><span class="t-rose">${I('mail')}</span> <span class="grad">Lời khuyên cho hai bạn</span></h3>
+${adv.map(t=>`<div class="advice" style="margin-bottom:.7rem">${I('spark')}<p style="font-size:.9rem;color:#6b5570">${t}</p></div>`).join('')}
+<div style="margin-top:1.2rem;text-align:center;border-top:1px dashed var(--line);padding-top:1.1rem">
+<p style="font-size:.88rem;font-weight:600;color:var(--label)">Kết quả này có đúng với hai bạn không?</p>
+<div class="stars" id="rate-stars">${[1,2,3,4,5].map(n=>`<button type="button" data-n="${n}" onclick="rate(${n})" aria-label="${n} sao">${I('star')}</button>`).join('')}</div>
+<p id="rate-note" style="font-size:.74rem;color:var(--muted);margin-top:.4rem">Chấm sao để mô hình tự học và chính xác hơn cho người sau</p>
+</div>
+</div>
+<div class="sheet center fade d3" style="margin-top:1.4rem">
+<p style="font-size:.82rem;color:var(--muted);margin-bottom:1.1rem">Bói toán chỉ mang tính tham khảo. Tình yêu đích thực nằm ở sự chân thành và nỗ lực của hai bạn.</p>
+<button type="button" class="btn btn-sm" onclick="resetForm()">${I('refresh')}<span>Xem bói lại</span></button>
+</div>`;
+  $('results').hidden=false;
+  requestAnimationFrame(()=>{
+    $('ring-val').style.strokeDashoffset=off;
+    document.querySelectorAll('#results [data-w]').forEach(b=>b.style.width=b.dataset.w+'%');
+    const el=$('score-number'),t0=performance.now(),dur=2000;
+    (function tick(now){
+      const p=Math.min((now-t0)/dur,1);
+      el.textContent=Math.round(a.score*(1-Math.pow(1-p,3)));
+      if(p<1)requestAnimationFrame(tick);
+    })(t0);
+  });
+}
+function rate(n){
+  if(rated)return;
+  rated=true;
+  document.querySelectorAll('#rate-stars button').forEach(b=>b.classList.toggle('on',+b.dataset.n<=n));
+  $('rate-note').textContent='Cảm ơn bạn! Mô hình đã ghi nhận và tinh chỉnh trọng số.';
+  if(LAST){
+    const{d,a}=LAST;
+    learnFromRating(n,{e:a.east,w:a.west,n:a.num});
+    db.ref('feedback').push({ts:Date.now(),r:n,e:a.east,w:a.west,nn:a.num,score:a.score}).catch(()=>{});
+  }
+  toast('Đã ghi nhận đánh giá của bạn!','ok');
+}
+function resetForm(){
+  $('results').hidden=true;
+  $('results').innerHTML='';
+  $('loading').hidden=true;
+  rated=false;
+  LAST=null;
+  for(const n of['1','2']){
+    $('name'+n).value='';
+    $('day'+n).selectedIndex=0;
+    $('month'+n).selectedIndex=0;
+    $('year'+n).selectedIndex=0;
+    $('hour'+n).selectedIndex=0;
+  }
+  $('gender1').value='male';
+  $('gender2').value='female';
+  if(currentTab!=='divine')switchTab('divine');
+  scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>$('name1').focus({preventScroll:true}),650);
+  toast('Đã đặt lại, mời bạn xem cặp đôi mới!','ok');
+}
+const validName=n=>n.length>=3&&n.length<=30;
+async function divine(){
+  const name1=$('name1').value.trim(),name2=$('name2').value.trim();
+  const dob1=getDob('1'),dob2=getDob('2');
+  if(!validName(name1)||!validName(name2)){
+    toast('Tên phải từ 3 đến 30 ký tự!','err');
+    return;
+  }
+  if(!name1||!name2||!dob1||!dob2){
+    toast('Vui lòng điền đầy đủ họ tên và ngày sinh!','err');
+    return;
+  }
+  $('loading').hidden=false;
+  $('results').hidden=true;
+  $('divine-btn').disabled=true;
+  rated=false;
+  const steps=['Nạp Lục thập hoa giáp...','Luận giải trụ ngày (Julius)...','Dựng Tàng Nguyệt & Cung Mọc...','Tính aspect theo góc độ chuẩn...','Đối chiếu tình bạn hành tinh Vedic...','Gom cluster Đông - Tây - Số học...','Chuẩn hóa trọng số tự học...','Rút Tarot duyên phận...','Quét vận trình 12 tháng...','Giải mã duyên phận...'];
+  let i=0;
+  const iv=setInterval(()=>{
+    $('loading-text').textContent=steps[i%steps.length];
+    $('loading-bar').style.width=((i+1)/steps.length*100)+'%';
+    i++;
+  },260);
+  await new Promise(r=>setTimeout(r,2500));
+  clearInterval(iv);
+  $('loading').hidden=true;
+  $('divine-btn').disabled=false;
+  const data={name1,name2,dob1,dob2,hour1:$('hour1').value,hour2:$('hour2').value,gender1:$('gender1').value,gender2:$('gender2').value};
+  const a=analyze(data);
+  renderResults(data,a);
+  db.ref('readings').push({name1,name2,dob1,dob2,gender1:data.gender1,gender2:data.gender2,score:a.score,east:a.east,west:a.west,num:a.num,zodiac1:a.z1.sign,zodiac2:a.z2.sign,nguhanh1:a.p1.hanh,nguhanh2:a.p2.hanh,flames:a.flames,timestamp:Date.now()}).then(()=>toast('Đã lưu kết quả thành công!','ok')).catch(()=>toast('Không lưu được lịch sử (kiểm tra Rules).','err'));
+  setTimeout(()=>$('results').scrollIntoView({behavior:'smooth',block:'start'}),150);
+}
+function getDob(n){
+  const d=$('day'+n).value,m=$('month'+n).value,y=$('year'+n).value;
+  if(!d||!m||!y)return null;
+  return`${y}-${pad2(m)}-${pad2(d)}`;
+}
+function loadHistory(){
+  const box=$('history-list');
+  box.innerHTML='<p class="center" style="color:var(--muted);padding:2rem 0">Đang tải...</p>';
+  db.ref('readings').orderByChild('timestamp').limitToLast(20).once('value',snap=>{
+    const v=snap.val();
+    if(!v){
+      box.innerHTML='<p class="center" style="color:var(--muted);padding:2rem 0">Chưa có lịch sử nào...</p>';
+      return;
+    }
+    box.innerHTML=Object.values(v).reverse().map((it,i)=>rowWrap(`<div style="display:flex;align-items:center;gap:.85rem;min-width:0;flex:1">${heartIcon(it.score)}${nameBlock(`${it.name1} & ${it.name2}`,new Date(it.timestamp).toLocaleString('vi-VN'))}</div>${scoreB(it.score,'1.1rem')}`,Math.min(i,8)*45)).join('');
+  });
+}
+function loadLeaderboard(){
+  const box=$('leaderboard-list');
+  box.innerHTML='<p class="center" style="color:var(--muted);padding:2rem 0">Đang tải...</p>';
+  db.ref('readings').orderByChild('score').limitToLast(50).once('value',snap=>{
+    const v=snap.val();
+    if(!v){
+      box.innerHTML='<p class="center" style="color:var(--muted);padding:2rem 0">Chưa có dữ liệu...</p>';
+      return;
+    }
+    const map=new Map();
+    for(const it of Object.values(v)){
+      const k=[String(it.name1).trim().toLowerCase(),String(it.name2).trim().toLowerCase()].sort().join('|');
+      const cur=map.get(k);
+      if(!cur||it.score>cur.score||(it.score===cur.score&&(it.timestamp||0)>(cur.timestamp||0)))map.set(k,it);
+    }
+    const items=[...map.values()].sort((a,b)=>b.score-a.score).slice(0,10);
+    if(!items.length){
+      box.innerHTML='<p class="center" style="color:var(--muted);padding:2rem 0">Chưa có dữ liệu...</p>';
+      return;
+    }
+    box.innerHTML=items.map((it,i)=>rowWrap(`<div style="display:flex;align-items:center;gap:.85rem;min-width:0;flex:1"><span class="rank ${i<3?'r'+(i+1):''}">${i+1}</span>${nameBlock(`${it.name1} & ${it.name2}`,`${it.zodiac1||''} & ${it.zodiac2||''}`)}</div>${scoreB(it.score,'1.3rem')}`,i*55)).join('');
+  });
+}
+let toastTimer;
+function toast(msg,type){
+  const t=$('toast');
+  t.className=type==='err'?'err':'ok';
+  t.innerHTML=`${I(type==='err'?'alert':'check')}<span>${msg}</span>`;
+  requestAnimationFrame(()=>t.classList.add('show'));
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+}
+</script>
+</body>
+</html>
